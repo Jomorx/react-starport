@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <>
       Home
-      <ProxyItem style={{width:"200px",height:"200px"}}/>
+      <ProxyItem style={{width:"100px",height:"100px",borderRadius:"0"}}/>
     </>
   )
 }
