@@ -9,25 +9,23 @@ import useMounted from "../../hooks/useMounted";
 import { StarportContext } from "../context/StarportContext";
 type IProxyItem = {
   style: React.CSSProperties;
-};
-const proxyItem: React.FC<IProxyItem> = ({ style }) => {
+} & any;
+const proxyItem: React.FC<IProxyItem> = (props) => {
   const el = useRef<HTMLDivElement>(null);
   const { setMetaData, setProxyElArr } = useContext(StarportContext);
-  console.log("item render");
-  
+  const { style, port } = props;
   useEffect(() => {
-    console.log(111);
-    
-    setMetaData(style);
-  }, [style]);
+    setMetaData((prev)=>({...prev,[port]:props}))
+  }, [props]);
   const update = () => {
     setProxyElArr((prev) => ({ ...prev }));
   };
+  
   useMounted(() => {
-    setProxyElArr((prev) => ({ ...prev, 1: el.current! }));
+    setProxyElArr((prev) => ({ ...prev, [port]: {el:el.current,isActive:true} }));
     window.addEventListener("resize", update);
     return () => {
-      setProxyElArr((prev) => ({ ...prev, 1: undefined }));
+    setProxyElArr((prev) => ({ ...prev, [port]:  {...prev[port],isActive:false}  }));
       window.removeEventListener("resize", update);
     };
   });

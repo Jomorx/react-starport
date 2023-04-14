@@ -5,4 +5,4 @@ type IStarportContext<M,E> = {
     proxyElArr:E
     setProxyElArr:Dispatch<SetStateAction<E>>
 }
-export const StarportContext = createContext<IStarportContext<CSSProperties,Record<string,HTMLElement|undefined>>>({} as any )
+export const StarportContext = createContext<IStarportContext<any,Record<string,{el:HTMLElement|undefined,isActive:boolean}>>>({} as any )

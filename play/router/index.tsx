@@ -1,19 +1,20 @@
 import { useRoutes } from "react-router-dom";
-import Home from "../pages/Home";
+import None from "../pages/None";
 import Info from "../pages/Info";
 import List from "../pages/List";
+import React from "react";
 export default () =>
   useRoutes([
     {
-      path: "/",
-      element: <Home />,
+      path: "/list",
+      element: <List />,
     },
     {
       path: "/info",
       element: <Info />,
     },
     {
-      path: "list",
-      element: <List />,
+      path: "none",
+      element: <None />,
     },
   ]);

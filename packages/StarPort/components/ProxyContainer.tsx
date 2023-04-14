@@ -1,41 +1,43 @@
-import React, {
-  CSSProperties,
-  FC,
-  ReactElement,
-  memo,
-  useContext,
-  useEffect,
-  useMemo,
-} from "react";
+import React, { CSSProperties, FC, memo, useContext, useMemo } from "react";
 import { StarportContext } from "../context/StarportContext";
 type IProxyContainer = {
-  RenderSlot: FC<{ metaData: CSSProperties }>;
+  RenderSlot: FC<any>;
+  port: number;
 };
-const ProxyContainer: FC<IProxyContainer> = ({ RenderSlot }) => {
+const ProxyContainer: FC<IProxyContainer> = (props) => {
+  const { RenderSlot, port } = props;
   const { metaData, proxyElArr } = useContext(StarportContext);
+  const { style, ...attrs } = metaData?.[port] ?? { style: {} };
+  console.log(proxyElArr);
+
   const defaultStyle = useMemo<CSSProperties>(() => {
-    if(!proxyElArr[1])
-    return {
+    const bounding = proxyElArr[port]?.el?.getBoundingClientRect();
+    if (!proxyElArr[port]?.isActive) {
+      console.log(bounding);
+      
+      return {
         position: "fixed",
-        top: 0,
-        left: 0,
-        opacity:0,
-        pointerEvents:"none"
+        top: bounding?.top ?? 0,
+        left: bounding?.left ?? 0,
+        transform: "scale(0)",
+        pointerEvents: "none",
+      };
     }
-    const bounding = proxyElArr[1]?.getBoundingClientRect();
+
     return {
       position: "fixed",
       top: bounding?.top ?? 0,
       left: bounding?.left ?? 0,
     };
   }, [proxyElArr]);
-  console.log("render");
+  console.log(attrs);
   
   return (
-    <div onTransitionEnd={(e)=>{
-      
-    }} style={{...defaultStyle,transition:"all 0.3s linear"}}>
-      <RenderSlot metaData={metaData} />
+    <div
+      onTransitionEnd={(e) => {}}
+      style={{ ...defaultStyle, transition: "all 0.3s linear" }}
+    >
+      <RenderSlot style={style} {...attrs} />
     </div>
   );
 };
