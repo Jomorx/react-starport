@@ -1,44 +1,76 @@
-import React, { CSSProperties, FC, memo, useContext, useMemo } from "react";
+import React, { CSSProperties, FC, memo, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { StarportContext } from "../context/StarportContext";
+import { createPortal } from "react-dom";
+
 type IProxyContainer = {
   RenderSlot: FC<any>;
   port: number;
 };
+const defaultStyle = {
+  position: "fixed",
+  transition: "all 0.5s linear"
+}
+const timer = new Map()
 const ProxyContainer: FC<IProxyContainer> = (props) => {
   const { RenderSlot, port } = props;
-  const { metaData, proxyElArr } = useContext(StarportContext);
+  const { metaData, proxyElArr,setLandedMap,landedMap } = useContext(StarportContext);
   const { style, ...attrs } = metaData?.[port] ?? { style: {} };
-  console.log(proxyElArr);
 
-  const defaultStyle = useMemo<CSSProperties>(() => {
+  const [landed,setLanded] = useState(false)
+  const [divStyle,setDivStyle] = useState({})
+
+  const update = async ()=>{
+    // 起飞
     const bounding = proxyElArr[port]?.el?.getBoundingClientRect();
     if (!proxyElArr[port]?.isActive) {
-      console.log(bounding);
-      
-      return {
-        position: "fixed",
+      setDivStyle ({
+        ...defaultStyle,
         top: bounding?.top ?? 0,
         left: bounding?.left ?? 0,
         transform: "scale(0)",
         pointerEvents: "none",
-      };
+      })
+    }else{
+      setDivStyle( {
+        ...defaultStyle,
+          top: bounding?.top ?? 0,
+          left: bounding?.left ?? 0,
+      })
+    }
+    clearTimeout(timer.get(port))
+    const time = setTimeout(() => {
+      if(proxyElArr[port]?.isActive){
+
+      setLanded(true)
     }
 
-    return {
-      position: "fixed",
-      top: bounding?.top ?? 0,
-      left: bounding?.left ?? 0,
-    };
-  }, [proxyElArr]);
-  console.log(attrs);
-  
+    }, 700)
+    timer.set(port,time)
+  }
+  // const handleOnTransitionEnd = ()=>{
+  //       setLanded(true)
+  // }
+  useEffect(()=>{
+    
+      update()
+  },[metaData,proxyElArr])
+  useEffect(()=>{
+    // 注册 setlanded函数
+    setLandedMap((prev:any)=>({...prev,[port]:setLanded}))
+    
+  },[port])
   return (
     <div
-      onTransitionEnd={(e) => {}}
-      style={{ ...defaultStyle, transition: "all 0.3s linear" }}
+    // onTransitionEnd={handleOnTransitionEnd}
+      style={divStyle}
+      
     >
-      <RenderSlot style={style} {...attrs} />
+      {
+        metaData[port]&&(landed && proxyElArr[port]?.el ? createPortal(<RenderSlot style={style} {...attrs} />,proxyElArr[port].el!) :<RenderSlot style={style} {...attrs} />)
+      }
+      Landed:{String(landed)}
     </div>
+    
   );
 };
 

@@ -12,6 +12,7 @@ const App = () => {
       <button onClick={()=>{handleClick("/list")}}>list</button>
       <button onClick={()=>{handleClick("/info")}}>info</button>
       <button onClick={()=>{handleClick("/none")}}>none</button>
+
       <Router />
       {
         imageArr.map((item,index)=><ProxyContainer RenderSlot={TheImage} port={index} key={index}/>)
