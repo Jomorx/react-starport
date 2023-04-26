@@ -10,7 +10,7 @@ const Home = () => {
     <div style={{ display: "flex", justifyContent: "center",flexDirection:"column",alignItems:"center" }}>
         <ProxyItem
           onClick={() => {
-            navigate(`/detail/${id}`);
+            navigate(`detail/${id}`);
           }}
           src={imageArr[id!]}
           port={id}

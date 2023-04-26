@@ -9,9 +9,9 @@ const App = () => {
   const handleClick = (path:string)=>navigate(path)
   return (
     <>
-      <button onClick={()=>{handleClick("/list")}}>list</button>
-      <button onClick={()=>{handleClick("/info")}}>info</button>
-      <button onClick={()=>{handleClick("/none")}}>none</button>
+      <button onClick={()=>{handleClick("list")}}>list</button>
+      <button onClick={()=>{handleClick("info")}}>info</button>
+      <button onClick={()=>{handleClick("none")}}>none</button>
 
       <Router />
       {
