@@ -20,7 +20,7 @@ const Info = () => {
       {imageArr.map((src, index) => (
         <ProxyItem
           onClick={(e) => {
-            navigate(`detail/${index}`);
+            navigate(`/detail/${index}`);
           }}
           style={style}
           src={src}
