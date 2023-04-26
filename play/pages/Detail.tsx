@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useMemo, useState } from "react";
-import ProxyItem from "starport/components/ProxyItem";
+import ProxyItem from "../../packages/StarPort/components/ProxyItem";
 import { imageArr } from "../coomposables/data";
 import { useNavigate, useParams } from "react-router-dom";
 const stateMap = new Map()

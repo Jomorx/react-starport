@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
-import ProxyItem from "starport/components/ProxyItem";
-import { imageArr } from "../coomposables/data";
+import ProxyItem from "../../packages/StarPort/components/ProxyItem";
 
 const List = () => {
   const style = useMemo(

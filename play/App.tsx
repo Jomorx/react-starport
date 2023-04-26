@@ -1,7 +1,7 @@
 import React from "react";
 import Router from "./router";
 import {useNavigate} from "react-router-dom"
-import ProxyContainer from "starport/components/ProxyContainer";
+import ProxyContainer from "../packages/StarPort/components/ProxyContainer";
 import TheImage from "./components/TheImage";
 import { imageArr } from "./coomposables/data";
 const App = () => {
