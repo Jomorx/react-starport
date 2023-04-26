@@ -8,7 +8,7 @@ const StarportScope = ({ children }) => {
   const [landedMap, setLandedMap] = React.useState<
     Record<number, Dispatch<boolean>>
   >({});
-
+  const stateMap = new Map()
   return (
     <StarportContext.Provider
       value={{
@@ -18,6 +18,7 @@ const StarportScope = ({ children }) => {
         setProxyElArr,
         landedMap,
         setLandedMap,
+        stateMap
       }}
     >
       {children}

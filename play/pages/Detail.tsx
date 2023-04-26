@@ -1,10 +1,11 @@
-import React, { memo, useMemo, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import ProxyItem from "starport/components/ProxyItem";
 import { imageArr } from "../coomposables/data";
 import { useNavigate, useParams } from "react-router-dom";
-
-const Home = () => {
-  const [counter, setCounter] = useState(100);
+const stateMap = new Map()
+const Detail = () => {
+  const { id } = useParams();
+  const [counter, setCounter] = useState(stateMap.get(id));
   const style = useMemo(() => {
     return {
       width: `${counter}px`,
@@ -14,10 +15,19 @@ const Home = () => {
     };
   }, [counter]);
   const navigate = useNavigate();
-  const { id } = useParams();
   const enLarge = () => {
-    setCounter(counter + 100);
-  };
+    setCounter(prev=>prev+100);
+    stateMap.set(id,stateMap.get(id)+100)
+    
+  }
+  useEffect(()=>{
+    if(!stateMap.get(id)){
+      
+      stateMap.set(id,100)
+      setCounter(100)
+      
+    }
+  },[id])
   return (
     <>
       <button onClick={enLarge}>enLarge</button>
@@ -37,4 +47,4 @@ const Home = () => {
   );
 };
 
-export default memo(Home);
+export default memo(Detail)
