@@ -1,9 +1,10 @@
 import React, { CSSProperties, Dispatch, useState } from "react";
 import { StarportContext } from "../context/StarportContext";
 const StarportScope = ({ children }) => {
+  // 
   const [metaData, setMetaData] = useState<CSSProperties>({});
   const [proxyElArr, setProxyElArr] = useState<
-    Record<string, { el: HTMLElement | undefined; isActive: boolean }>
+    Record<string, { el: HTMLElement | null; isActive: boolean }>
   >({});
   const [landedMap, setLandedMap] = React.useState<
     Record<number, Dispatch<boolean>>

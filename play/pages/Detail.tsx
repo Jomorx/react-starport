@@ -20,17 +20,22 @@ const Detail = () => {
     stateMap.set(id,stateMap.get(id)+100)
     
   }
+  const reset = ()=>{
+    setCounter(100)
+    stateMap.set(id,100)
+  }
   useEffect(()=>{
     if(!stateMap.get(id)){
-      
       stateMap.set(id,100)
       setCounter(100)
-      
     }
   },[id])
   return (
     <>
+    <br />
       <button onClick={enLarge}>enLarge</button>
+      <button onClick={reset}>reset</button>
+
       <div style={{ display: "flex", justifyContent: "center" }}>
         <ProxyItem
           style={style}
@@ -38,7 +43,7 @@ const Detail = () => {
             navigate(`/home/${id}`);
           }}
           src={imageArr[id!]}
-          port={id}
+          port={id!}
           key={id}
         />
         react起源于Facebook的内部项目，在13年5月开源。react不是一个完整的MVC框架，最多可以认为是MVC中的V（view），react并不认可MVC开发模式。可以理解为，react将界面分成了各个独立的小块，每一个块就是组件，这些组件之间可以组合、嵌套，就成了页面。

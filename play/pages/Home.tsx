@@ -13,7 +13,7 @@ const Home = () => {
             navigate(`/detail/${id}`);
           }}
           src={imageArr[id!]}
-          port={id}
+          port={id!}
           key={id}
           style={{width: "500px", height: "150px"}}
         ></ProxyItem>

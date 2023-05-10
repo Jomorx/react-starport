@@ -1,0 +1,1 @@
+export const resolvedPromise = (fn)=>Promise.resolve().then(fn)
