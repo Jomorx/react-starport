@@ -9,7 +9,7 @@ import { StarportContext } from "../context/StarportContext";
 import { resolvedPromise } from "../utils";
 type IProxyItem = {
   port: string | number;
-  src: string;
+  renderProps: any;
 } & HtmlHTMLAttributes<HTMLImageElement>;
 
 const proxyItem: React.FC<IProxyItem> = (props) => {
@@ -17,10 +17,11 @@ const proxyItem: React.FC<IProxyItem> = (props) => {
 
   const { setMetaData, setProxyElArr, landedMap } = useContext(StarportContext);
 
-  const { style, port, ...attrs } = props;
-
+  const { port, renderProps } = props;
+  console.log(renderProps);
+  
   const update = async () => {
-    setMetaData((prev) => ({ ...prev, [port]: { style, ...attrs } }));
+    setMetaData((prev) => ({ ...prev, [port]: renderProps }));
   };
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const proxyItem: React.FC<IProxyItem> = (props) => {
   }, [props, landedMap]);
 
   return (
-    <div ref={el} style={{ ...style, transition: "all 0.5s linear" }}></div>
+    <div ref={el} style={{ ...renderProps?.style, transition: "all 0.5s linear" }}></div>
   );
 };
 

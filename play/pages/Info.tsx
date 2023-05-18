@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import {ProxyItem} from "../../packages/StarPort/dist/index.es";
+import { ProxyItem } from "../../packages/StarPort/dist/index.es";
 
 import { imageArr } from "../coomposables/data";
 import { useNavigate } from "react-router-dom";
@@ -20,11 +20,13 @@ const Info = () => {
     >
       {imageArr.map((src, index) => (
         <ProxyItem
-          onClick={(e) => {
-            navigate(`/detail/${index}`);
+        renderProps={{
+            onClick: (e) => {
+              navigate(`/detail/${index}`);
+            },
+            style,
+            src,
           }}
-          style={style}
-          src={src}
           port={index}
           key={index}
         />

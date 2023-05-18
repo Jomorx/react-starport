@@ -60,9 +60,10 @@ const resolvedPromise = (fn) => Promise.resolve().then(fn);
 const proxyItem = (props) => {
     const el = useRef(null);
     const { setMetaData, setProxyElArr, landedMap } = useContext(StarportContext);
-    const { style, port, ...attrs } = props;
+    const { port, renderProps } = props;
+    console.log(renderProps);
     const update = async () => {
-        setMetaData((prev) => ({ ...prev, [port]: { style, ...attrs } }));
+        setMetaData((prev) => ({ ...prev, [port]: renderProps }));
     };
     useEffect(() => {
         update();
@@ -82,7 +83,7 @@ const proxyItem = (props) => {
             window.removeEventListener("resize", update);
         };
     }, [props, landedMap]);
-    return (React.createElement("div", { ref: el, style: { ...style, transition: "all 0.5s linear" } }));
+    return (React.createElement("div", { ref: el, style: { ...renderProps?.style, transition: "all 0.5s linear" } }));
 };
 var ProxyItem = memo(proxyItem);
 

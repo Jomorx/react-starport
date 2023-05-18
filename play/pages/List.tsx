@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import {ProxyItem} from "../../packages/StarPort/dist/index.es";
+import { ProxyItem } from "../../packages/StarPort/dist/index.es";
 
 const List = () => {
   const style = useMemo(
@@ -11,28 +11,31 @@ const List = () => {
 
   return (
     <>
-      Home
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div>
-          {listA.map(item => (
+          {listA.map((item) => (
             <ProxyItem
-              style={style}
               port={item}
               key={item}
-              onClick={() => {
-                setListA(listA.filter((i) => i !== item));
-                setListB([...listB, item]);
+              renderProps={{
+                style,
+                onClick: () => {
+                  setListB(listB.filter((i) => i !== item));
+                  setListA([...listA, item]);
+                },
               }}
             />
           ))}
         </div>
         <div>
-          {listB.map(item => (
+          {listB.map((item) => (
             <ProxyItem
-              style={style}
-              onClick={() => {
-                setListB(listB.filter((i) => i !== item));
-                setListA([...listA, item]);
+              renderProps={{
+                style,
+                onClick: () => {
+                  setListB(listB.filter((i) => i !== item));
+                  setListA([...listA, item]);
+                },
               }}
               port={item}
               key={item}

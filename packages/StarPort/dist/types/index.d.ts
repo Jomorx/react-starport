@@ -8,7 +8,7 @@ declare const _default$1: React.NamedExoticComponent<IProxyContainer>;
 
 type IProxyItem = {
     port: string | number;
-    src: string;
+    renderProps: any;
 } & HtmlHTMLAttributes<HTMLImageElement>;
 declare const _default: React.NamedExoticComponent<IProxyItem>;
 

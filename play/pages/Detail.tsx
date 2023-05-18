@@ -1,8 +1,8 @@
 import React, { memo, useEffect, useMemo, useState } from "react";
-import {ProxyItem} from "../../packages/StarPort/dist/index.es";
+import { ProxyItem } from "../../packages/StarPort/dist/index.es";
 import { imageArr } from "../coomposables/data";
 import { useNavigate, useParams } from "react-router-dom";
-const stateMap = new Map()
+const stateMap = new Map();
 const Detail = () => {
   const { id } = useParams();
   const [counter, setCounter] = useState(stateMap.get(id));
@@ -16,33 +16,34 @@ const Detail = () => {
   }, [counter]);
   const navigate = useNavigate();
   const enLarge = () => {
-    setCounter(prev=>prev+100);
-    stateMap.set(id,stateMap.get(id)+100)
-    
-  }
-  const reset = ()=>{
-    setCounter(100)
-    stateMap.set(id,100)
-  }
-  useEffect(()=>{
-    if(!stateMap.get(id)){
-      stateMap.set(id,100)
-      setCounter(100)
+    setCounter((prev) => prev + 100);
+    stateMap.set(id, stateMap.get(id) + 100);
+  };
+  const reset = () => {
+    setCounter(100);
+    stateMap.set(id, 100);
+  };
+  useEffect(() => {
+    if (!stateMap.get(id)) {
+      stateMap.set(id, 100);
+      setCounter(100);
     }
-  },[id])
+  }, [id]);
   return (
     <>
-    <br />
+      <br />
       <button onClick={enLarge}>enLarge</button>
       <button onClick={reset}>reset</button>
 
       <div style={{ display: "flex", justifyContent: "center" }}>
         <ProxyItem
-          style={style}
-          onClick={(e) => {
-            navigate(`/home/${id}`);
+          renderProps={{
+            style,
+            onClick: (e) => {
+              navigate(`/home/${id}`);
+            },
+            src: imageArr[id!],
           }}
-          src={imageArr[id!]}
           port={id!}
           key={id}
         />
@@ -52,4 +53,4 @@ const Detail = () => {
   );
 };
 
-export default memo(Detail)
+export default memo(Detail);
