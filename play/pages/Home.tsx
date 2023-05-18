@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import ProxyItem from "../../packages/StarPort/components/ProxyItem";
+import {ProxyItem} from "../../packages/StarPort/dist/index.es";
+
 import { imageArr } from "../coomposables/data";
 
 const Home = () => {

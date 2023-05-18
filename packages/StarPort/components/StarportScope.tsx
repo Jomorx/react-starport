@@ -1,8 +1,8 @@
-import React, { CSSProperties, Dispatch, useState } from "react";
+import React, { Dispatch, FC, ReactNode, useState } from "react";
 import { StarportContext } from "../context/StarportContext";
-const StarportScope = ({ children }) => {
+const StarportScope:FC<{children:ReactNode}> = ({ children }) => {
   // 
-  const [metaData, setMetaData] = useState<CSSProperties>({});
+  const [metaData, setMetaData] = useState<Record<any,any>>({});
   const [proxyElArr, setProxyElArr] = useState<
     Record<string, { el: HTMLElement | null; isActive: boolean }>
   >({});

@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
-import ProxyItem from "../../packages/StarPort/components/ProxyItem";
+import {ProxyItem} from "../../packages/StarPort/dist/index.es";
+
 import { imageArr } from "../coomposables/data";
 import { useNavigate } from "react-router-dom";
 

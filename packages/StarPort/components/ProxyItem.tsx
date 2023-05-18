@@ -12,7 +12,7 @@ type IProxyItem = {
   src: string;
 } & HtmlHTMLAttributes<HTMLImageElement>;
 
-const proxyItem: React.FC<IProxyItem> = (props) => {
+const proxyItem: React.FC<IProxyItem  > = (props) => {
   const el = useRef<HTMLDivElement>(null);
 
   const { setMetaData, setProxyElArr, landedMap } = useContext(StarportContext);

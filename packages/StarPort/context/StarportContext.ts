@@ -1,7 +1,7 @@
-import { CSSProperties, Dispatch, SetStateAction, createContext, useRef } from "react";
+import React,{ Dispatch, SetStateAction, createContext } from "react";
 type IStarportContext<M,E,P> = {
-    metaData :M,
-    setMetaData:Dispatch<SetStateAction<M>>,
+    metaData :Record<any,M>,
+    setMetaData:Dispatch<SetStateAction<Record<any,M>>>,
     proxyElArr:E
     setProxyElArr:Dispatch<SetStateAction<E>>,
     landedMap:P,
@@ -9,4 +9,4 @@ type IStarportContext<M,E,P> = {
     stateMap:Map<number,number>
 }
 export type TProxyElArr = Record<string,{el:HTMLElement|null,isActive:boolean}>
-export const StarportContext = createContext<IStarportContext<CSSProperties,TProxyElArr,Record<PropertyKey,Dispatch<boolean>>>>({} as any )
+export const StarportContext = createContext<IStarportContext<any,TProxyElArr,Record<PropertyKey,Dispatch<boolean>>>>({} as any )

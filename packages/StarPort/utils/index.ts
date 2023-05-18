@@ -1,1 +1,1 @@
-export const resolvedPromise = (fn)=>Promise.resolve().then(fn)
+export const resolvedPromise = (fn:any)=>Promise.resolve().then(fn)

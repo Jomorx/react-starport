@@ -1,5 +1,4 @@
 import React, {
-  CSSProperties,
   FC,
   memo,
   useContext,
@@ -14,7 +13,7 @@ import { createPortal } from "react-dom";
 type IProxyContainer = {
   RenderSlot: FC<any>;
   port: number;
-};
+}
 const defaultStyle = {
   position: "fixed",
   transition: "all 0.5s linear",

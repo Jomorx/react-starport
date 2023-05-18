@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import ProxyItem from "../../packages/StarPort/components/ProxyItem";
+import {ProxyItem} from "../../packages/StarPort/dist/index.es";
 
 const List = () => {
   const style = useMemo(
