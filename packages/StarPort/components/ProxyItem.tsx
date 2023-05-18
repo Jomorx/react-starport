@@ -8,19 +8,19 @@ import React, {
 import { StarportContext } from "../context/StarportContext";
 import { resolvedPromise } from "../utils";
 type IProxyItem = {
-  port: string|number;
+  port: string | number;
   src: string;
 } & HtmlHTMLAttributes<HTMLImageElement>;
 
-const proxyItem: React.FC<IProxyItem  > = (props) => {
+const proxyItem: React.FC<IProxyItem> = (props) => {
   const el = useRef<HTMLDivElement>(null);
 
   const { setMetaData, setProxyElArr, landedMap } = useContext(StarportContext);
 
-  const { style, port } = props;
+  const { style, port, ...attrs } = props;
 
   const update = async () => {
-    setMetaData((prev) => ({ ...prev, [port]: props }));
+    setMetaData((prev) => ({ ...prev, [port]: { style, ...attrs } }));
   };
 
   useEffect(() => {
