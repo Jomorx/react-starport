@@ -1,39 +1,32 @@
-'use strict';
+import React, { createContext, memo, useContext, useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
-var React = require('react');
-var reactDom = require('react-dom');
+const StarportContext = createContext({});
 
-const StarportContext = React.createContext({});
-
-const defaultStyle = {
-    position: "fixed",
-    transition: "all 0.5s linear",
-};
 const timer = new Map();
 const ProxyContainer = (props) => {
     const { RenderSlot, port } = props;
-    const { metaData, proxyElArr, setLandedMap } = React.useContext(StarportContext);
+    const { metaData, proxyElArr, setLandedMap } = useContext(StarportContext);
     const { style, ...attrs } = metaData?.[port] ?? { style: {} };
-    const [landed, setLanded] = React.useState(false);
-    const [divStyle, setDivStyle] = React.useState({});
+    const defaultStyle = {
+        position: "fixed",
+        transition: `all ${props.duration}ms linear`,
+    };
+    const [landed, setLanded] = useState(false);
+    const [divStyle, setDivStyle] = useState({});
     const update = async () => {
         // 起飞
         const bounding = proxyElArr[port]?.el?.getBoundingClientRect();
         // 消失时候的样式
         if (!proxyElArr[port]?.isActive) {
-            setDivStyle({
-                ...defaultStyle,
-                top: bounding?.top ?? 0,
-                left: bounding?.left ?? 0,
-                transform: "scale(0)",
-                pointerEvents: "none",
-            });
+            setDivStyle({ ...props.deActiveStyle, ...defaultStyle });
         }
         else {
+            // 落地的时候的样式
             setDivStyle({
+                top: bounding?.top,
+                left: bounding?.left,
                 ...defaultStyle,
-                top: bounding?.top ?? 0,
-                left: bounding?.left ?? 0,
             });
         }
         clearTimeout(timer.get(port));
@@ -41,33 +34,33 @@ const ProxyContainer = (props) => {
             if (proxyElArr[port]?.isActive) {
                 setLanded(true);
             }
-        }, 700);
+        }, props.duration);
         timer.set(port, time);
     };
     // 当metaData变化的时候起飞
-    React.useEffect(() => {
+    useEffect(() => {
         update();
     }, [metaData, proxyElArr]);
-    React.useEffect(() => {
+    useEffect(() => {
         // 注册 setLanded函数
         setLandedMap((prev) => ({ ...prev, [port]: setLanded }));
     }, [port]);
     return (React.createElement("div", { style: divStyle }, metaData[port] &&
-        (landed && proxyElArr[port]?.el ? (reactDom.createPortal(React.createElement(RenderSlot, { style: style, ...attrs }), proxyElArr[port].el)) : (React.createElement(RenderSlot, { style: style, ...attrs })))));
+        (landed && proxyElArr[port]?.el ? (createPortal(React.createElement(RenderSlot, { style: style, ...attrs }), proxyElArr[port].el)) : (React.createElement(RenderSlot, { style: style, ...attrs })))));
 };
-var ProxyContainer$1 = React.memo(ProxyContainer);
+var ProxyContainer$1 = memo(ProxyContainer);
 
 const resolvedPromise = (fn) => Promise.resolve().then(fn);
 
 const proxyItem = (props) => {
-    const el = React.useRef(null);
-    const { setMetaData, setProxyElArr, landedMap } = React.useContext(StarportContext);
+    const el = useRef(null);
+    const { setMetaData, setProxyElArr, landedMap } = useContext(StarportContext);
     const { port, renderProps } = props;
     console.log(renderProps);
     const update = async () => {
         setMetaData((prev) => ({ ...prev, [port]: renderProps }));
     };
-    React.useEffect(() => {
+    useEffect(() => {
         update();
         setProxyElArr((prev) => ({
             ...prev,
@@ -87,14 +80,13 @@ const proxyItem = (props) => {
     }, [props, landedMap]);
     return (React.createElement("div", { ref: el, style: { ...renderProps?.style, transition: "all 0.5s linear" } }));
 };
-var ProxyItem = React.memo(proxyItem);
+var ProxyItem = memo(proxyItem);
 
 const StarportScope = ({ children }) => {
     // 
-    const [metaData, setMetaData] = React.useState({});
-    const [proxyElArr, setProxyElArr] = React.useState({});
+    const [metaData, setMetaData] = useState({});
+    const [proxyElArr, setProxyElArr] = useState({});
     const [landedMap, setLandedMap] = React.useState({});
-    const stateMap = new Map();
     return (React.createElement(StarportContext.Provider, { value: {
             metaData,
             setMetaData,
@@ -102,10 +94,7 @@ const StarportScope = ({ children }) => {
             setProxyElArr,
             landedMap,
             setLandedMap,
-            stateMap
         } }, children));
 };
 
-exports.ProxyContainer = ProxyContainer$1;
-exports.ProxyItem = ProxyItem;
-exports.StarportScope = StarportScope;
+export { ProxyContainer$1 as ProxyContainer, ProxyItem, StarportScope };

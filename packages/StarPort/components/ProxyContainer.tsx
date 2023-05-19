@@ -1,10 +1,9 @@
 import React, {
+  CSSProperties,
   FC,
   memo,
   useContext,
   useEffect,
-  useMemo,
-  useRef,
   useState,
 } from "react";
 import { StarportContext } from "../context/StarportContext";
@@ -13,18 +12,19 @@ import { createPortal } from "react-dom";
 type IProxyContainer = {
   RenderSlot: FC<any>;
   port: number;
-}
-const defaultStyle = {
-  position: "fixed",
-  transition: "all 0.5s linear",
+  deActiveStyle: CSSProperties;
+  duration: number;
 };
+
 const timer = new Map();
 const ProxyContainer: FC<IProxyContainer> = (props) => {
   const { RenderSlot, port } = props;
-  const { metaData, proxyElArr, setLandedMap } =
-    useContext(StarportContext);
+  const { metaData, proxyElArr, setLandedMap } = useContext(StarportContext);
   const { style, ...attrs } = metaData?.[port] ?? { style: {} };
-
+  const defaultStyle: CSSProperties = {
+    position: "fixed",
+    transition: `all ${props.duration}ms linear`,
+  };
   const [landed, setLanded] = useState(false);
   const [divStyle, setDivStyle] = useState({});
 
@@ -33,18 +33,14 @@ const ProxyContainer: FC<IProxyContainer> = (props) => {
     const bounding = proxyElArr[port]?.el?.getBoundingClientRect();
     // 消失时候的样式
     if (!proxyElArr[port]?.isActive) {
-      setDivStyle({
-        ...defaultStyle,
-        top: bounding?.top ?? 0,
-        left: bounding?.left ?? 0,
-        transform: "scale(0)",
-        pointerEvents: "none",
-      });
+      setDivStyle({ ...props.deActiveStyle, ...defaultStyle });
     } else {
+      // 落地的时候的样式
       setDivStyle({
+        top: bounding?.top,
+        left: bounding?.left,
+        overflow:"hidden",
         ...defaultStyle,
-        top: bounding?.top ?? 0,
-        left: bounding?.left ?? 0,
       });
     }
     clearTimeout(timer.get(port));
@@ -52,7 +48,7 @@ const ProxyContainer: FC<IProxyContainer> = (props) => {
       if (proxyElArr[port]?.isActive) {
         setLanded(true);
       }
-    }, 700);
+    }, props.duration);
     timer.set(port, time);
   };
   // 当metaData变化的时候起飞

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { ProxyItem } from "../../packages/StarPort/dist/index.es";
+import { ProxyItem } from "../../packages/StarPort/dist/index";
 
 const List = () => {
   const style = useMemo(
@@ -8,7 +8,8 @@ const List = () => {
   );
   const [listA, setListA] = useState<string[]>(["0", "1", "2"]);
   const [listB, setListB] = useState<string[]>(["3", "4", "5"]);
-
+    console.log(listA,listB);
+    
   return (
     <>
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -20,8 +21,8 @@ const List = () => {
               renderProps={{
                 style,
                 onClick: () => {
-                  setListB(listB.filter((i) => i !== item));
-                  setListA([...listA, item]);
+                  setListA(listA.filter((i) => i !== item));
+                  setListB([...listB, item]);
                 },
               }}
             />

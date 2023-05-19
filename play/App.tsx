@@ -1,13 +1,15 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import Router from "./router";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ProxyContainer } from "../packages/StarPort/dist/index.es";
+import { ProxyContainer } from "../packages/StarPort/dist/index";
 import TheImage from "./components/TheImage";
 import { imageArr } from "./coomposables/data";
+
+
 const App = () => {
   const navigate = useNavigate();
   const handleClick = (path: string) => navigate(path);
-  const location = useLocation()
+  const location = useLocation();
   return (
     <>
       <button
@@ -32,11 +34,22 @@ const App = () => {
         none
       </button>
       <br />
-    {location.pathname}
+      {location.pathname}
 
       <Router />
       {imageArr.map((item, index) => (
-        <ProxyContainer RenderSlot={TheImage} port={index} key={index} />
+        <ProxyContainer
+          deActiveStyle={{
+              top: 0,
+              left: 0,
+              transform: "scale(0)",
+              pointerEvents: "none",
+          }}
+          duration={5000}
+          RenderSlot={TheImage}
+          port={index}
+          key={index}
+        />
       ))}
     </>
   );

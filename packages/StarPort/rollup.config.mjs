@@ -11,10 +11,6 @@ export default [
     output: [
       {
         file: 'dist/index.js',
-        format: 'cjs'
-      },
-      {
-        file: 'dist/index.es.js',
         format: 'es'
       }
     ],
@@ -24,16 +20,6 @@ export default [
       babel({
         presets: ['@babel/preset-env', '@babel/preset-react']
       }),
-    ],
-    
-  },
-  {
-    input: './index.ts',
-    output: {
-      file:"dist/types/index.d.ts"
-    },
-    plugins: [
-      DtsPlugin(),
     ],
     
   },

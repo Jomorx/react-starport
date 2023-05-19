@@ -1,16 +1,24 @@
-import React, { CSSProperties, FC, ReactElement, ReactNode, cloneElement } from "react";
+import React, { CSSProperties, ComponentProps, FC } from "react";
 import TheImage from "../../../play/components/TheImage";
 import ProxyItem from "../components/ProxyItem";
 import ProxyContainer from "../components/ProxyContainer";
 type ICreateProxy<T> = {
   deActiveStyle: CSSProperties;
   activeStyle: CSSProperties;
-  element:T
+  RenderSlot: T;
 };
 const createProxy = <T extends FC<any>>(props: ICreateProxy<T>) => {
-  return [cloneElement(ProxyContainer ,{},null)]
+  const createContainer = (
+    args: Pick<ComponentProps<typeof ProxyContainer>, "port">
+  ) => <ProxyContainer {...props} {...args} />;
+
+  return [ProxyItem, createContainer];
 };
 
 export default createProxy;
 
-const [element] = createProxy({activeStyle:{},deActiveStyle:{},element:TheImage})
+const [proxyItem, proxyContainer] = createProxy({
+  activeStyle: {},
+  deActiveStyle: {},
+  RenderSlot: TheImage,
+});

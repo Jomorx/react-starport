@@ -10,7 +10,7 @@ import { resolvedPromise } from "../utils";
 type IProxyItem = {
   port: string | number;
   renderProps: any;
-} & HtmlHTMLAttributes<HTMLImageElement>;
+} 
 
 const proxyItem: React.FC<IProxyItem> = (props) => {
   const el = useRef<HTMLDivElement>(null);

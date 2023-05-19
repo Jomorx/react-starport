@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, ReactNode, useState } from "react";
+import React, { Dispatch, FC, ReactNode, SetStateAction, useState } from "react";
 import { StarportContext } from "../context/StarportContext";
 const StarportScope:FC<{children:ReactNode}> = ({ children }) => {
   // 
@@ -7,9 +7,8 @@ const StarportScope:FC<{children:ReactNode}> = ({ children }) => {
     Record<string, { el: HTMLElement | null; isActive: boolean }>
   >({});
   const [landedMap, setLandedMap] = React.useState<
-    Record<number, Dispatch<boolean>>
+    Record<PropertyKey, Dispatch<SetStateAction<boolean>>>
   >({});
-  const stateMap = new Map()
   return (
     <StarportContext.Provider
       value={{
@@ -19,7 +18,6 @@ const StarportScope:FC<{children:ReactNode}> = ({ children }) => {
         setProxyElArr,
         landedMap,
         setLandedMap,
-        stateMap
       }}
     >
       {children}
