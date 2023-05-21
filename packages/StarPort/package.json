@@ -1,20 +1,33 @@
 {
-  "name": "react-starport-components",
-  "version": "1.0.0",
+  "name": "react-starport-comp",
+  "version": "1.0.3",
   "description": "",
-  "modules":"",  
+  "files": [
+    "dist","postinstall.js"
+  ],
+  "module": "dist/index",
   "type": "module",
   "types": "./dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "release": "npm publish",
+    "postinstall": "node ./postinstall.js"
   },
   "peerDependencies": {
     "react": ">=16",
     "react-dom": ">=16"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "react",
+    "starport",
+    "Cross Route Animation"
+  ],
+  "repository": {
+    "url": "https://github.com/Jomorx/react-starport",
+    "type": "git"
+  },
+  "author": "Jomorx",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.21.8",
@@ -31,3 +44,4 @@
     "rollup-plugin-typescript2": "^0.34.1"
   }
 }
+

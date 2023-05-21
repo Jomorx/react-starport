@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "pnpm --filter react-starport-components build",
+    "build": "pnpm --filter react-starport-comp build",
+    "release": "pnpm --filter react-starport-comp release",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -26,6 +26,7 @@ const ProxyContainer = (props) => {
             setDivStyle({
                 top: bounding?.top,
                 left: bounding?.left,
+                overflow: "hidden",
                 ...defaultStyle,
             });
         }

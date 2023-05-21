@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 import Router from "./router";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ProxyContainer } from "../packages/StarPort/dist/index";
+import { ProxyContainer } from "react-starport-comp";
 import TheImage from "./components/TheImage";
 import { imageArr } from "./coomposables/data";
 

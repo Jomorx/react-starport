@@ -57,6 +57,12 @@ importers:
       rollup-plugin-typescript: 1.0.1
       rollup-plugin-typescript2: 0.34.1_rollup@3.22.0
 
+  play:
+    specifiers:
+      react-starport-comp: ^1.0.3
+    dependencies:
+      react-starport-comp: 1.0.3
+
 packages:
 
   /@ampproject/remapping/2.2.1:
@@ -2327,6 +2333,14 @@ packages:
     dependencies:
       '@remix-run/router': 1.5.0
       react: 18.2.0
+    dev: false
+
+  /react-starport-comp/1.0.3:
+    resolution: {integrity: sha512-XvZBfl5XxZEyWJl5/io9D1Ic+R67DwHkqbnEolWtGaHwGqte3uhtkoVstXcuXh9u4XCNkeAePNFdaBLwUkCsSA==}
+    requiresBuild: true
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
     dev: false
 
   /react/18.2.0:
