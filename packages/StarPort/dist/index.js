@@ -10,7 +10,6 @@ const ProxyContainer = (props) => {
     const { style, ...attrs } = metaData?.[port] ?? { style: {} };
     const defaultStyle = {
         position: "fixed",
-        transition: `all ${props.duration}ms linear`,
     };
     const [landed, setLanded] = useState(false);
     const [divStyle, setDivStyle] = useState({});
@@ -79,7 +78,7 @@ const proxyItem = (props) => {
             window.removeEventListener("resize", update);
         };
     }, [props, landedMap]);
-    return (React.createElement("div", { ref: el, style: { ...renderProps?.style, transition: "all 0.5s linear" } }));
+    return (React.createElement("div", { ref: el, style: { ...renderProps?.style } }));
 };
 var ProxyItem = memo(proxyItem);
 

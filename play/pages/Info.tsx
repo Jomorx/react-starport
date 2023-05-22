@@ -7,7 +7,12 @@ import { useNavigate } from "react-router-dom";
 const Info = () => {
   const navigate = useNavigate();
   const style = useMemo(() => {
-    return { width: "100px", height: "100px", borderRadius: "50%" };
+    return {
+      width: "100px",
+      height: "100px",
+      borderRadius: "50%",
+      transition: "all 0.5s linear",
+    };
   }, []);
 
   return (
@@ -20,7 +25,7 @@ const Info = () => {
     >
       {imageArr.map((src, index) => (
         <ProxyItem
-        renderProps={{
+          renderProps={{
             onClick: (e) => {
               navigate(`/detail/${index}`);
             },

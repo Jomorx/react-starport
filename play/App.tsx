@@ -5,7 +5,6 @@ import { ProxyContainer } from "react-starport-comp";
 import TheImage from "./components/TheImage";
 import { imageArr } from "./coomposables/data";
 
-
 const App = () => {
   const navigate = useNavigate();
   const handleClick = (path: string) => navigate(path);
@@ -40,12 +39,13 @@ const App = () => {
       {imageArr.map((item, index) => (
         <ProxyContainer
           deActiveStyle={{
-              top: 0,
-              left: 0,
-              transform: "scale(0)",
-              pointerEvents: "none",
+            top: 0,
+            left: 0,
+            transform: "scale(0)",
+            pointerEvents: "none",
+            transition: `all 0.5s linear`,
           }}
-          duration={5000}
+          duration={500}
           RenderSlot={TheImage}
           port={index}
           key={index}

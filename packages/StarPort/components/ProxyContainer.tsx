@@ -23,7 +23,6 @@ const ProxyContainer: FC<IProxyContainer> = (props) => {
   const { style, ...attrs } = metaData?.[port] ?? { style: {} };
   const defaultStyle: CSSProperties = {
     position: "fixed",
-    transition: `all ${props.duration}ms linear`,
   };
   const [landed, setLanded] = useState(false);
   const [divStyle, setDivStyle] = useState({});

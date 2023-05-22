@@ -12,6 +12,7 @@ const Detail = () => {
       height: `${counter}px`,
       borderRadius: "50%",
       flexShrink: 0,
+      transition: "all 0.5s linear",
     };
   }, [counter]);
   const navigate = useNavigate();

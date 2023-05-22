@@ -45,7 +45,7 @@ const proxyItem: React.FC<IProxyItem> = (props) => {
   }, [props, landedMap]);
 
   return (
-    <div ref={el} style={{ ...renderProps?.style, transition: "all 0.5s linear" }}></div>
+    <div ref={el} style={{ ...renderProps?.style}}></div>
   );
 };
 
