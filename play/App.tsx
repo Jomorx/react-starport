@@ -43,8 +43,8 @@ const App = () => {
             left: 0,
             transform: "scale(0)",
             pointerEvents: "none",
-            transition: `all 0.5s linear`,
           }}
+          transition="linear"
           duration={500}
           RenderSlot={TheImage}
           port={index}

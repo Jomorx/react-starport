@@ -14,32 +14,39 @@ type IProxyContainer = {
   port: number;
   deActiveStyle: CSSProperties;
   duration: number;
+  transition: "linear" | "ease";
 };
-
+// 容器为fix定位
+const defaultStyle: CSSProperties = {
+  position: "fixed",
+};
+// 每个item定时器的map
 const timer = new Map();
 const ProxyContainer: FC<IProxyContainer> = (props) => {
-  const { RenderSlot, port } = props;
+  const { RenderSlot, port, duration, deActiveStyle, transition } = props;
   const { metaData, proxyElArr, setLandedMap } = useContext(StarportContext);
   const { style, ...attrs } = metaData?.[port] ?? { style: {} };
-  const defaultStyle: CSSProperties = {
-    position: "fixed",
-  };
+
   const [landed, setLanded] = useState(false);
   const [divStyle, setDivStyle] = useState({});
 
   const update = async () => {
     // 起飞
-    const bounding = proxyElArr[port]?.el?.getBoundingClientRect();
+    console.log(divStyle);
+    
     // 消失时候的样式
     if (!proxyElArr[port]?.isActive) {
-      setDivStyle({ ...props.deActiveStyle, ...defaultStyle });
+      setDivStyle({ ...deActiveStyle, ...defaultStyle,
+        transition: `all ${duration}ms ${transition}`,
+       });
     } else {
+    const bounding = proxyElArr[port]?.el?.getBoundingClientRect();
       // 落地的时候的样式
       setDivStyle({
         top: bounding?.top,
         left: bounding?.left,
-        overflow:"hidden",
         ...defaultStyle,
+        transition: `all ${duration}ms ${transition}`,
       });
     }
     clearTimeout(timer.get(port));
@@ -47,7 +54,7 @@ const ProxyContainer: FC<IProxyContainer> = (props) => {
       if (proxyElArr[port]?.isActive) {
         setLanded(true);
       }
-    }, props.duration);
+    }, duration);
     timer.set(port, time);
   };
   // 当metaData变化的时候起飞
