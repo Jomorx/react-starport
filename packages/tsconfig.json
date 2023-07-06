@@ -19,5 +19,5 @@
     "noEmit": true,
     "jsx": "react",
   },
-  "include": ["index.ts"],
+  "include": ["Keepalive/**/*.ts","Starport/**/*.ts"],
 }

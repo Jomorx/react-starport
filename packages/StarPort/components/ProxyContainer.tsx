@@ -4,10 +4,12 @@ import React, {
   memo,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { StarportContext } from "../context/StarportContext";
 import { createPortal } from "react-dom";
+import { KeepAlive } from "../../Keepalive";
 
 type IProxyContainer = {
   RenderSlot: FC<any>;
@@ -25,22 +27,21 @@ const timer = new Map();
 const ProxyContainer: FC<IProxyContainer> = (props) => {
   const { RenderSlot, port, duration, deActiveStyle, transition } = props;
   const { metaData, proxyElArr, setLandedMap } = useContext(StarportContext);
-  const { style, ...attrs } = metaData?.[port] ?? { style: {} };
+  const meta = metaData?.[port];
 
   const [landed, setLanded] = useState(false);
   const [divStyle, setDivStyle] = useState({});
-
   const update = async () => {
     // 起飞
-    console.log(divStyle);
-    
     // 消失时候的样式
     if (!proxyElArr[port]?.isActive) {
-      setDivStyle({ ...deActiveStyle, ...defaultStyle,
+      setDivStyle({
+        ...deActiveStyle,
+        ...defaultStyle,
         transition: `all ${duration}ms ${transition}`,
-       });
+      });
     } else {
-    const bounding = proxyElArr[port]?.el?.getBoundingClientRect();
+      const bounding = proxyElArr[port]?.el?.getBoundingClientRect();
       // 落地的时候的样式
       setDivStyle({
         top: bounding?.top,
@@ -70,11 +71,15 @@ const ProxyContainer: FC<IProxyContainer> = (props) => {
       {metaData[port] &&
         (landed && proxyElArr[port]?.el ? (
           createPortal(
-            <RenderSlot style={style} {...attrs} />,
+            <KeepAlive port={port}>
+              <RenderSlot {...meta} />
+            </KeepAlive>,
             proxyElArr[port].el!
           )
         ) : (
-          <RenderSlot style={style} {...attrs} />
+          <KeepAlive port={port}>
+            <RenderSlot {...meta} />
+          </KeepAlive>
         ))}
     </div>
   );
