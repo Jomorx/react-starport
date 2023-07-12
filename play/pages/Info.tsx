@@ -12,6 +12,7 @@ const Info = () => {
       height: "100px",
       borderRadius: "50%",
       transition: "all 0.5s linear",
+      overflow:"hidden"
     };
   }, []);
 

@@ -11,5 +11,5 @@ export const KeepAlive: FC<TKeepAlive> = ({ children, port }) => {
     const ele = getElement(port, children)
     divRef.current?.appendChild(ele)
   }, []);
-  return <div ref={divRef} />;
+  return <div ref={divRef} style={{width:"100%",height:"100%"}} />;
 };

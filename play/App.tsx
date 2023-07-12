@@ -33,7 +33,7 @@ const App = () => {
         none
       </button>
       <br />
-      {location.pathname}
+      now path:{location.pathname}
 
       <Router />
       {imageArr.map((item, index) => (

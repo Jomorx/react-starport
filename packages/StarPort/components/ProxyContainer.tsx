@@ -27,8 +27,7 @@ const timer = new Map();
 const ProxyContainer: FC<IProxyContainer> = (props) => {
   const { RenderSlot, port, duration, deActiveStyle, transition } = props;
   const { metaData, proxyElArr, setLandedMap } = useContext(StarportContext);
-  const meta = metaData?.[port];
-
+   const meta = metaData?.[port]
   const [landed, setLanded] = useState(false);
   const [divStyle, setDivStyle] = useState({});
   const update = async () => {
@@ -67,18 +66,18 @@ const ProxyContainer: FC<IProxyContainer> = (props) => {
     setLandedMap((prev) => ({ ...prev, [port]: setLanded }));
   }, [port]);
   return (
-    <div style={divStyle}>
+    <div {...meta} style={{...divStyle,...meta?.style}}>
       {metaData[port] &&
         (landed && proxyElArr[port]?.el ? (
           createPortal(
             <KeepAlive port={port}>
-              <RenderSlot {...meta} />
+              <RenderSlot />
             </KeepAlive>,
             proxyElArr[port].el!
           )
         ) : (
           <KeepAlive port={port}>
-            <RenderSlot {...meta} />
+            <RenderSlot />
           </KeepAlive>
         ))}
     </div>

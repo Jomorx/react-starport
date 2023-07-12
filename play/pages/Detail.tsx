@@ -13,6 +13,7 @@ const Detail = () => {
       borderRadius: "50%",
       flexShrink: 0,
       transition: "all 0.5s linear",
+      overflow:"hidden"
     };
   }, [counter]);
   const navigate = useNavigate();
@@ -43,7 +44,6 @@ const Detail = () => {
             onClick: (e) => {
               navigate(`/home/${id}`);
             },
-            src: imageArr[id!],
           }}
           port={id!}
           key={id}

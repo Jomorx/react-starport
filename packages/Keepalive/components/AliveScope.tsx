@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useRef, useState } from "react";
+import React, { FC, ReactElement, useState } from "react";
 import { AliveContext } from "../context/AliveContext";
 import { createPortal } from "react-dom";
 type TAliveScope = {
@@ -14,6 +14,8 @@ const AliveScope: FC<TAliveScope> = ({ children }) => {
     if (!aliveMap[port]) {
       // 如果没有缓存
       const element = document.createElement("div");
+      element.style.width = '100%'
+      element.style.height = '100%'
       setAliveMap((prev) => ({ ...prev, [port]: { element, node } }));
       return element;
     } else {
@@ -25,7 +27,7 @@ const AliveScope: FC<TAliveScope> = ({ children }) => {
     <AliveContext.Provider value={{ getElement }}>
       {children}
       {Object.entries(aliveMap).map(([port, { element, node }]) => (
-        <React.Fragment key={port}>{port}{createPortal(node ,element)}</React.Fragment>
+        <React.Fragment key={port}>{createPortal(node ,element)}</React.Fragment>
       ))}
     </AliveContext.Provider>
   );

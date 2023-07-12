@@ -18,7 +18,6 @@ const proxyItem: React.FC<IProxyItem> = (props) => {
   const { setMetaData, setProxyElArr, landedMap } = useContext(StarportContext);
 
   const { port, renderProps } = props;
-  console.log(renderProps);
   
   const update = async () => {
     setMetaData((prev) => ({ ...prev, [port]: renderProps }));
@@ -45,7 +44,7 @@ const proxyItem: React.FC<IProxyItem> = (props) => {
   }, [props, landedMap]);
 
   return (
-    <div ref={el} style={{ ...renderProps?.style}}></div>
+    <div ref={el} style = {renderProps.style}/>
   );
 };
 

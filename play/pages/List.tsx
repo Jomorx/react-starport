@@ -8,8 +8,6 @@ const List = () => {
   );
   const [listA, setListA] = useState<string[]>(["0", "1", "2"]);
   const [listB, setListB] = useState<string[]>(["3", "4", "5"]);
-    console.log(listA,listB);
-    
   return (
     <>
       <div style={{ display: "flex", justifyContent: "center" }}>
