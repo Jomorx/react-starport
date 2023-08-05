@@ -1,5 +1,7 @@
 ## react-starport-comp
 
+### playground
+[https://codesandbox.io/s/competent-kalam-t5mqg6?file=/src/index.tsx](https://codesandbox.io/s/competent-kalam-t5mqg6?file=/src/index.tsx)
 ### Usage
 ### install
 ```bash
@@ -34,13 +36,13 @@ carry your component to do animation
  */
 <ProxyContainer
   deActiveStyle={{
-    top: 0,
-    left: 0,
-    transform: "scale(0)",
-    pointerEvents: "none",
-    transition: `all 0.5s linear`,
-  }}
-  duration={5000}
+  top: 0,
+  left: 0,
+  transform: "scale(0)",
+  pointerEvents: "none",
+}}
+  transition="linear"
+  duration={500}
   RenderSlot={TheImage}
   port={index}
   key={index}
@@ -54,17 +56,17 @@ your component to do animation
    renderProps: the component receive props
    port: the port with ProxyContainer
  */
-      <ProxyItem
-        port={id}
-        key={id}
-        renderProps={{
-          onClick: () => {
-            navigate(`/detail/${id}`);
-          },
-          src: imageArr[id],
-          style: { width: "500px", height: "150px" },
-        }}
-      ></ProxyItem>
+<ProxyItem
+  port={id!}
+  key={id}
+  renderProps={{
+    onClick: () => {
+      navigate(`/detail/${id}`);
+    },
+    src: imageArr[id!],
+    style: { width: "500px", height: "150px" },
+  }}
+></ProxyItem>
 ```
 ### Todo
 - [ ] auto register ProxyContainer 

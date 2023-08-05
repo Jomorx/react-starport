@@ -6,7 +6,6 @@
   "directories": {
     "doc": "docs"
   },
-  "devDependencies": {},
   "scripts": {
     "release": "pnpm --filter react-starport-comp release",
     "bundle": "pnpm --filter react-starport-comp build",
