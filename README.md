@@ -1,5 +1,7 @@
 ## react-starport-comp
-
+### what can it do 
+  Provide smooth animation between two route switches,like this:
+[https://www.pinterest.com/pin/211174971670220/](https://www.pinterest.com/pin/211174971670220/)
 ### playground
 [https://codesandbox.io/s/competent-kalam-t5mqg6?file=/src/index.tsx](https://codesandbox.io/s/competent-kalam-t5mqg6?file=/src/index.tsx)
 ### Usage
